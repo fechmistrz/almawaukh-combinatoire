@@ -1,0 +1,50 @@
+
+\input{00-meta-latex/shortcuts}
+
+\usepackage{comment}
+\includecomment{comment}
+
+% forced by -output-directory option in makefile
+% see https://tex.stackexchange.com/a/564296
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\imki@putindex
+  {\imki@exec{\imki@program \imki@options #1.idx}}
+  {\imki@exec{cd ../build;\imki@program\imki@options#1.idx}}
+  {\message{Patch succeeded in imki@putindex}}
+  {\errmessage{Patch failed in imki@putindex}}
+\makeatother
+\makeindex[title=Skorowidz]
+\makeindex[name=persons,title=Indeks osób]
+
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\usepackage[colorinlistoftodos,prependcaption]{todonotes}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{knots}
+\colorlet{darkblue}{blue!80!black}
+\definecolor{diagramfiller}{HTML}{5784BA}
+\definecolor{first_colour}{HTML}{A15D98}
+
+\definecolor{lightgray}{gray}{0.9} % define lightgray
+\let\oldtabular\tabular % alternate rowcolors for all tables
+\let\endoldtabular\endtabular
+\renewenvironment{tabular}
+{\rowcolors{2}{white}{lightgray}\oldtabular}
+{\endoldtabular}
+\let\oldlongtable\longtable % alternate rowcolors for all long-tables
+\let\endoldlongtable\endlongtable
+\renewenvironment{longtable}
+{\rowcolors{2}{white}{lightgray}\oldlongtable}
+{\endoldlongtable}
+
+\author{Ana Zlatić}
+\title{Kombinatoryka}
+
+\begin{document}
+
