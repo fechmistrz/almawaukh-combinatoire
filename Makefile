@@ -18,7 +18,7 @@ prepare:
 
 chapter-all: build/combinatoire.pdf
 
-build/combinatoire.pdf: src/combinatoire.tex src/combinatoire.bib src/*/*.tex
+build/combinatoire.pdf: src/combinatoire.tex src/combinatoire.bib src/*/*.tex src/*.tex
 	$(call make_pdf)
 
 release:

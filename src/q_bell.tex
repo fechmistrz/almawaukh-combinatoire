@@ -1,0 +1,70 @@
+\section{Liczby Bella}
+
+\begin{definition}[liczby Bella]
+	Liczbę relacji równoważności na zbiorze $n$-elementowym oznaczamy przez $b_n$.
+\end{definition}
+
+Na przykład $b_3 = 5$, gdyż zbiór $\{1, 2, 3\}$ można podzielić na singletony ($\{1\}, \{2\}, \{3\}$), singleton i parę ($\{1\}, \{2, 3\}$ lub $\{2\}, \{1, 3\}$ lub $\{3\}, \{1, 2\}$) albo nie dzielić go wcale ($\{1, 2, 3\}$).
+Początkowe wyrazy tego ciągu to $1, 1, 2, 5, 15, 52, 203, 877, 4140, ...$
+Zostały tak nazwane na cześć Erica Temple'a Bella, szkockiego matematyka, który pisał o nich w latach 30. ubiegłego wieku.
+\index[persons]{Bell, Eric}%
+
+\begin{proposition}
+	Liczby Bella spełniają zależność rekurencyjną
+	\begin{equation}
+		b_n = \sum_{k=1}^n {n-1 \choose k-1} b_{n-k}
+	\end{equation}
+	z warunkiem brzegowym $b_0 = 1$.
+\end{proposition}
+
+\begin{proof}
+	Po lewej stronie zliczamy relacje równoważności na zbiorze $\{1, 2, \ldots, n+1\}$.
+
+	Po prawej stronie robimy to samo, w następujący sposób: najpierw wybieramy podzbiór $k-1$ elementów, które należą do tej samej klasy abstrakcji co liczba $n$, a następnie zliczamy wszystkie relacje równoważności na pozostałych elementach.
+\end{proof}
+
+\begin{proposition}
+	Wykładnicza funkcja tworząca liczb Bella to
+	\begin{equation}
+		B(x) = \sum_{n=0}^\infty \frac{b_n}{n!} x^n  = \exp(\exp(x) - 1).
+	\end{equation}
+\end{proposition}
+
+
+\begin{proof}
+	% http://www-groups.mcs.st-andrews.ac.uk/~pjc/Teaching/MT5821/1/l9.pdf
+	Niech $B(x)$ oznacza wykładniczą funkcję tworzącą liczb Bella.
+	Wtedy
+	\begin{align}
+		\frac{\mathrm{d}}{\mathrm{d}x} B(x) & = \sum_{n=1}^\infty \frac{b_n x^{n-1}}{(n-1)!} \\
+		& = \sum_{n=0}^\infty \sum_{k=1}^n \frac{x^{k-1}}{(k-1)!} \frac{b_{n-k} x^{n-k}}{(n-k)!} \\
+		& = \sum_{k=0}^\infty \frac{x^k}{k!} \sum_{m=0}^\infty \frac{b_m x^m}{m!} \\
+		& = \exp(x) B(x).
+	\end{align}
+	Dostaliśmy proste równanie różniczkowe, jego rozwiązanie to funkcja $B(x) = C \exp(\exp(x))$.
+	Z warunku początkowego obliczamy wartość stałej $C = \exp(-1)$.
+\end{proof}
+
+Jeżeli rozwiniemy w szereg Taylora funkcję $\exp(\exp(x) - 1)$, to dostaniemy:
+
+\begin{corollary}[wzór Dobińskiego]
+	\begin{equation}
+		b_n = \frac 1e \sum_{r=0}^\infty \frac{r^n}{r!}.
+	\end{equation}
+\end{corollary}
+
+Wzór ten mówi, że momenty rozkładu Poissona o średniej 1 wyrażają się liczbami Bella.
+Znalazł go Gabriel Dobiński \cite{dobinski1877} w 1877 roku.
+
+{
+\url{https://en.wikipedia.org/wiki/Bell_number}
+\color{red}
+The Bell numbers come up in a card shuffling problem mentioned in the addendum to Gardner (1978). If a deck of n cards is shuffled by repeatedly removing the top card and reinserting it anywhere in the deck (including its original position at the top of the deck), with exactly n repetitions of this operation, then there are nn different shuffles that can be performed. Of these, the number that return the deck to its original sorted order is exactly Bn. Thus, the probability that the deck is in its original order after shuffling it in this way is Bn/nn, which is significantly larger than the 1/n! probability that would describe a uniformly random permutation of the deck. 
+}
+
+
+% In particular, Bn is the nth moment of a Poisson distribution with mean 1. 
+% https://oeis.org/A000110
+
+
+
